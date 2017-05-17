@@ -1,22 +1,39 @@
 import requests
 from bs4 import BeautifulSoup
+import re
 
-def webCrawler(max_page_num):
-	on_page = 1
-	while on_page <= max_page_num:
-		url = 'https://scholar.google.co.in/scholar?start='+ str(on_page - 1) +'0&q=stochastic+simulation+paper+stochastic+%22stochastic%22&hl=en&as_sdt=0,33&as_vis=1'
-		s_code = requests.get(url)
-		ptext = s_code.text
-		soup = BeautifulSoup(ptext)
-		for link in soup.findAll('h3', {'class': 'gs_rt'}) :
-			print(link)
-			# href = link.get('href')
-			# title = link.string
-			# print(href)
-			# print(title)
-		on_page +=1
+def webCrawler():
+	url = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&term=stochastic+simulation&retmax=8953'
+	s_code = requests.get(url)
+	ptext = s_code.text
+	# soup = BeautifulSoup(ptext)
+	regex = '<Id>(.+?)</Id>'
+	pattern = re.compile(regex)
+	ids = re.findall(pattern,ptext)
+	k = 0
+	for i in ids:
+		# print(i)
 
-webCrawler(1) 
+		if(k == 8952):
+			print(i)
+			break
+		k+=1
+	# ids = soup.findAll('Id')
+	# print(ptext)
+	# for i in ids:
+	# 	print(i)
+
+	# print(ptext)
+	# for link in soup.findAll('Id') :
+	# 	print('yoy')
+	# 	print(link)
+	# 	# href = link.get('href')
+		# title = link.string
+		# print(href)
+		# print(title)
+		# on_page +=1
+
+webCrawler() 
 
 # https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&term=stochastic+simulation&retmax=8953
 # https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&id=23517100
