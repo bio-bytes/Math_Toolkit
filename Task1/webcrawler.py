@@ -13,10 +13,14 @@ def getinfo(idn):
 	pattern2 = re.compile(regex2)
 	title_string = re.findall(pattern1,pid_text)
 	year_string = re.findall(pattern2,pid_text)
+	if (len(year_string)==0):
+		regex2 = '<Item Name="PubDate" Type="Date">(.+?)</Item>'
+		pattern2 = re.compile(regex2)
+		year_string = re.findall(pattern2,pid_text)
 	# title_string1 = title_string.encode("utf-8")
 	# year_string1 = year_string.encode("utf-8")
 	# print(title_string[0])
-	# print(int(year_string[0]))
+	# print(year_string)
 	title_list.append(title_string[0])
 	year_list.append(int(year_string[0]))
 	# print(title_string)
@@ -33,9 +37,10 @@ def webCrawler():
 	ids = re.findall(pattern,ptext)
 	# k = 0
 	for i in ids:
-		# print(i)
+		# print(k)
 		getinfo(i)
-		break
+		# k=k+1
+		# break
 		# print(i)
 	# ids = soup.findAll('Id')
 	# print(ptext)
@@ -53,7 +58,7 @@ def webCrawler():
 		# on_page +=1
 
 webCrawler() 
-print(title_list[0])
+# print(title_list)
 print(year_list)
 # https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&term=stochastic+simulation&retmax=8953
 # https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&id=23517100
