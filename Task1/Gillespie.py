@@ -9,12 +9,9 @@ print("Possible Reaction that can take place")
 print("\n")
 print("1. E + S -->  ES , with K1 rate constant")
 print("2. ES -->  E + S , with K2 rate constant")
-print("4. ES --> E + P , with K4 rate constant")
+print("4. ES --> E + P , with K3 rate constant")
 print("\n")
 print("Here E , S , ES and P are the fundamental species which we need track")
-
-number_of_chemical_species = 4
-number_of_possible_reaction = 4
 
 r1 = 20
 r2 = 30
