@@ -1,5 +1,3 @@
-#Reference https://www.cs.princeton.edu/picasso/mats/matlab/princeton_spring06.pdf
-
 import matplotlib.pyplot as pyplot
 import numpy as np
 import math
