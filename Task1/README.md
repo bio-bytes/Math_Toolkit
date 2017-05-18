@@ -5,7 +5,7 @@ This python file calls the Pubmed Api as many times as the number of Articles to
 # web-crawler
 	
 A optimized version of the Pubmed Api file above . It can fetch data using only 2 calls to Pubmed Server , Parses the data using BeautifulSoup ( Python Library to Pull data out XML ) . 
-( Derived from karan_dabas project from this repository )
+( Derived from karan_dabas branch of this repository )
 
 # Gillespie
 	
