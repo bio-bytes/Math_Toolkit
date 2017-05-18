@@ -9,7 +9,6 @@ print("Possible Reaction that can take place")
 print("\n")
 print("1. E + S -->  ES , with K1 rate constant")
 print("2. ES -->  E + S , with K2 rate constant")
-print("3. E + P -->  ES , with K3 rate constant")
 print("4. ES --> E + P , with K4 rate constant")
 print("\n")
 print("Here E , S , ES and P are the fundamental species which we need track")
@@ -17,15 +16,14 @@ print("Here E , S , ES and P are the fundamental species which we need track")
 number_of_chemical_species = 4
 number_of_possible_reaction = 4
 
-r1 = 2
-r2 = 3
-r3 = 4
-r4 = 1
+r1 = 20
+r2 = 30
+r3 = 100
 
-E_current = 401
-S_current = 230
-Es_current = 194
-P_Current =121
+E_current = 0.00001
+S_current = 0.001
+Es_current = 0
+P_Current = 0
 
 time_initial = 0
 
@@ -40,10 +38,9 @@ tt_array = np.zeros(max_reaction+1)
 
 a1 = r1*E_current*S_current
 a2 = r2*Es_current
-a3 = r3*E_current*P_Current
-a4 = r4*P_Current
+a3 = r3*P_Current
 
-a0 = a1 + a2 + a3 + a4
+a0 = a1 + a2 + a3
 
 r_counter = 0
 
