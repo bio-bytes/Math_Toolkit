@@ -1,52 +1,49 @@
+#Reference https://www.cs.princeton.edu/picasso/mats/matlab/princeton_spring06.pdf
+
 import matplotlib.pyplot as pyplot
-from scipy.stats import *
 import numpy as np
 import math
 import random
 
-print("Doing Analysis for M-M Equation")
-print("Possible Reaction that can take place")
-print("\n")
-print("1. E + S -->  ES , with K1 rate constant")
-print("2. ES -->  E + S , with K2 rate constant")
-print("4. ES --> E + P , with K3 rate constant")
-print("\n")
-print("Here E , S , ES and P are the fundamental species which we need track")
+print("Consider the following set of Equations ")
+print(" E + S --> ES with K1 rate ")
+print(" ES --> E + S with K2 rate ")
+print(" ES --> E + P with rate K3 ")
 
-r1 = 20
-r2 = 30
-r3 = 100
+r1 = 0.000001
+r3 = 0.111
+r2 = 12
 
-E_current = 0.00001
-S_current = 0.001
-Es_current = 0
-P_Current = 0
+E_current = 25
+S_current = 583
+ES_current = 5
+P_current = 13
+
+a1 = r1*E_current*S_current
+a2 = r2*ES_current
+a3 = r3*ES_current
+
+a0 = a1 + a2 + a3 
 
 time_initial = 0
-
 max_reaction = 10000
 max_time = 1
 
-E_array = np.zeros(max_reaction+1)
-S_array = np.zeros(max_reaction+1)
-P_array = np.zeros(max_reaction+1)
-ES_array = np.zeros(max_reaction+1)
-tt_array = np.zeros(max_reaction+1)
+E_array = []
+S_array = []
+ES_array = []
+P_array = []
+tt_array = []
 
-a1 = r1*E_current*S_current
-a2 = r2*Es_current
-a3 = r3*P_Current
-
-a0 = a1 + a2 + a3
 
 r_counter = 0
 
 while r_counter < max_reaction and time_initial < max_time:
 
-	E_array[r_counter] = E_current
-	S_array[r_counter] = S_current
-	P_array[r_counter] = P_Current
-	ES_array[r_counter] = Es_current
+	E_array.append(E_current)
+	S_array.append(S_current)
+	ES_array.append(ES_current)
+	P_array.append(P_current)
 
 	r_counter = r_counter + 1
 
@@ -54,36 +51,30 @@ while r_counter < max_reaction and time_initial < max_time:
 	rn2 = round(random.uniform(0.1, 1.0), 10)
 	
 	t_next = (1/a0)*(math.log(1/rn1))
-	tt_array[r_counter]=t_next 
-
 	time_initial = time_initial + t_next
+	tt_array.append(time_initial)
+
+	print(rn2,a1/a0,(a1+a2)/a0,(a1+a2+a3)/a0)
 
 	if rn2 >= 0 and rn2 < a1/a0:
 
 		E_current = E_current - 1
 		S_current = S_current - 1
-		Es_current = Es_current + 1
+		ES_current = ES_current + 1
 
 	elif rn2 >= a1/a0  and rn2 < (a1+a2)/a0:
 
-		Es_current = Es_current - 1
+		ES_current = ES_current - 1
 		E_current = E_current + 1
 		S_current = S_current + 1
 
-	elif rn2 >= (a1+a2)/a0 and rn2 < (a1+a2+a3)/a0:
+	elif rn2 >= (a1+a2)/a0 and rn2 < 1:
 
-		E_current = E_current - 1
-		P_Current = P_Current - 1
-		Es_current = Es_current + 1
-
-	elif rn2 >= (a1+a2+a3)/a0 and rn2 < 1:
-
-		Es_current = Es_current - 1
+		ES_current = ES_current - 1
 		E_current = E_current + 1
-		P_Current = P_Current + 1
+		P_current = P_current + 1
 
 pyplot.plot(E_array)
 pyplot.plot(S_array)
 pyplot.plot(ES_array)
-pyplot.plot(P_array)
 pyplot.show()
